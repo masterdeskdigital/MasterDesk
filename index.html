@@ -162,37 +162,195 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-3xl font-extrabold text-center mb-16 text-text-light">Soluções Chave</h2>
                 
-                <div class="grid md:grid-cols-3 gap-8">
-                    
-                    <div class="feature-card p-8 rounded-2xl shadow-xl border-accent-purple/50 transition duration-300 hover:shadow-accent-blue/30 hover:border-accent-blue/50 transform hover:-translate-y-1">
-                        <div class="text-4xl text-accent-blue mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-archive"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg>
-                        </div>
-                        <h3 class="text-2xl font-semibold mb-3 text-text-light">Organização Impecável</h3>
-                        <p class="text-text-faded text-sm">O poder do fluxo de trabalho centralizado.</p>
-                        <p class="text-text-light/70 mt-3 hidden md:block">Centralize clientes, dados e documentos em um único ambiente. Diga adeus ao caos das planilhas.</p>
-                    </div>
-                    
-                    <div class="feature-card p-8 rounded-2xl shadow-xl border-accent-purple/50 transition duration-300 hover:shadow-accent-blue/30 hover:border-accent-blue/50 transform hover:-translate-y-1">
-                        <div class="text-4xl text-accent-blue mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-zap"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                        </div>
-                        <h3 class="text-2xl font-semibold mb-3 text-text-light">Automação Inteligente</h3>
-                        <p class="text-text-faded text-sm">Aumente a velocidade do seu atendimento.</p>
-                        <p class="text-text-light/70 mt-3 hidden md:block">Automatize tarefas repetitivas, gerando mais tempo para o que realmente importa: o crescimento.</p>
-                    </div>
-                    
-                    <div class="feature-card p-8 rounded-2xl shadow-xl border-accent-purple/50 transition duration-300 hover:shadow-accent-blue/30 hover:border-accent-blue/50 transform hover:-translate-y-1">
-                        <div class="text-4xl text-accent-blue mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-grid"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg>
-                        </div>
-                        <h3 class="text-2xl font-semibold mb-3 text-text-light">Experiência Focada</h3>
-                        <p class="text-text-faded text-sm">Simplifique a gestão e o dia a dia.</p>
-                        <p class="text-text-light/70 mt-3 hidden md:block">Um design moderno e intuitivo que facilita a navegação, tornando a gestão uma experiência agradável.</p>
-                    </div>
+              <!-- Carrossel de Soluções Chave -->
+<div class="relative">
 
-                </div>
-            </div>
+  <!-- Botão Esquerda (invisível por opacidade e sem pointer events até o primeiro avanço) -->
+  <button id="prevBtn" class="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-primary-card/90 border border-accent-purple/50 hover:border-accent-blue/60 shadow-lg rounded-full p-3 hover:scale-105 transition duration-300 opacity-0 pointer-events-none">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent-blue"><path d="m15 18-6-6 6-6"/></svg>
+  </button>
+
+  <!-- Botão Direita -->
+  <button id="nextBtn" class="md:flex absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-primary-card/90 border border-accent-purple/50 hover:border-accent-blue/60 shadow-lg rounded-full p-3 hover:scale-105 transition duration-300">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent-blue"><path d="m9 6 6 6-6 6"/></svg>
+  </button>
+
+  <!-- Área de Rolagem (overflow escondido; sem barra de rolagem visível) -->
+  <div id="solucoes-carousel" class="flex space-x-8 overflow-x-hidden snap-x snap-mandatory scroll-smooth pb-4">
+
+    <!-- Organização Impecável -->
+    <div class="feature-card p-10 min-w-[360px] max-w-[380px] h-[320px] snap-center rounded-2xl shadow-xl border-accent-purple/50 transition duration-300 hover:shadow-accent-blue/30 hover:border-accent-blue/50 transform hover:-translate-y-1">
+      <div class="text-4xl text-accent-blue mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" class="lucide lucide-archive"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg>
+      </div>
+      <h3 class="text-2xl font-semibold mb-3 text-text-light">Organização Impecável</h3>
+      <p class="text-text-faded text-sm">O poder do fluxo de trabalho centralizado.</p>
+      <p class="text-text-light/70 mt-3">Centralize clientes, dados e documentos em um único ambiente. Diga adeus ao caos das planilhas.</p>
+    </div>
+
+    <!-- Experiência Focada -->
+    <div class="feature-card p-10 min-w-[360px] max-w-[380px] h-[320px] snap-center rounded-2xl shadow-xl border-accent-purple/50 transition duration-300 hover:shadow-accent-blue/30 hover:border-accent-blue/50 transform hover:-translate-y-1">
+      <div class="text-4xl text-accent-blue mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" class="lucide lucide-layout-grid"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg>
+      </div>
+      <h3 class="text-2xl font-semibold mb-3 text-text-light">Experiência Focada</h3>
+      <p class="text-text-faded text-sm">Simplifique a gestão e o dia a dia.</p>
+      <p class="text-text-light/70 mt-3">Um design moderno e intuitivo que facilita a navegação, tornando a gestão uma experiência agradável.</p>
+    </div>
+
+    <!-- Assistência Virtual -->
+    <div class="feature-card p-10 min-w-[360px] max-w-[380px] h-[320px] snap-center rounded-2xl shadow-xl border-accent-purple/50 transition duration-300 hover:shadow-accent-blue/30 hover:border-accent-blue/50 transform hover:-translate-y-1">
+      <div class="text-4xl text-accent-blue mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" class="lucide lucide-headphones"><path d="M3 12a9 9 0 0 1 18 0v8a2 2 0 0 1-2 2h-2v-6h4"/><path d="M3 20v-6h4v6H5a2 2 0 0 1-2-2z"/></svg>
+      </div>
+      <h3 class="text-2xl font-semibold mb-3 text-text-light">Assistência Virtual</h3>
+      <p class="text-text-faded text-sm">Suporte ágil e humano para o seu negócio.</p>
+      <p class="text-text-light/70 mt-3">Conte com uma equipe virtual para responder, organizar e otimizar seu atendimento diário.</p>
+    </div>
+
+    <!-- Gestão de Mídias Sociais -->
+    <div class="feature-card p-10 min-w-[360px] max-w-[380px] h-[320px] snap-center rounded-2xl shadow-xl border-accent-purple/50 transition duration-300 hover:shadow-accent-blue/30 hover:border-accent-blue/50 transform hover:-translate-y-1">
+      <div class="text-4xl text-accent-blue mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" class="lucide lucide-share-2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+      </div>
+      <h3 class="text-2xl font-semibold mb-3 text-text-light">Gestão de Mídias Sociais</h3>
+      <p class="text-text-faded text-sm">Posicione sua marca com estratégia.</p>
+      <p class="text-text-light/70 mt-3">Criamos e gerenciamos conteúdos alinhados ao seu público, com design e consistência profissional.</p>
+    </div>
+
+    <!-- Criação de Identidade Visual -->
+    <div class="feature-card p-10 min-w-[360px] max-w-[380px] h-[320px] snap-center rounded-2xl shadow-xl border-accent-purple/50 transition duration-300 hover:shadow-accent-blue/30 hover:border-accent-blue/50 transform hover:-translate-y-1">
+      <div class="text-4xl text-accent-blue mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" class="lucide lucide-paintbrush"><path d="M12 20h9"/><path d="M16.5 3.5 19 6l-8.5 8.5a5.97 5.97 0 0 1-4.24 1.76H5v-1.76a5.97 5.97 0 0 1 1.76-4.24L15.5 3.5Z"/></svg>
+      </div>
+      <h3 class="text-2xl font-semibold mb-3 text-text-light">Criação de Identidade Visual</h3>
+      <p class="text-text-faded text-sm">Fortaleça a imagem do seu negócio.</p>
+      <p class="text-text-light/70 mt-3">Desenvolvemos logotipos, cores e padrões visuais que refletem a essência da sua marca.</p>
+    </div>
+
+    <!-- Planilhas Inteligentes -->
+    <div class="feature-card p-10 min-w-[360px] max-w-[380px] h-[320px] snap-center rounded-2xl shadow-xl border-accent-purple/50 transition duration-300 hover:shadow-accent-blue/30 hover:border-accent-blue/50 transform hover:-translate-y-1">
+      <div class="text-4xl text-accent-blue mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" class="lucide lucide-table"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      </div>
+      <h3 class="text-2xl font-semibold mb-3 text-text-light">Planilhas Inteligentes</h3>
+      <p class="text-text-faded text-sm">Organize e automatize seus dados.</p>
+      <p class="text-text-light/70 mt-3">Criação de planilhas personalizadas para controle de vendas, finanças e produtividade.</p>
+    </div>
+
+    <!-- Automação e Suporte Digital -->
+    <div class="feature-card p-10 min-w-[360px] max-w-[380px] h-[320px] snap-center rounded-2xl shadow-xl border-accent-purple/50 transition duration-300 hover:shadow-accent-blue/30 hover:border-accent-blue/50 transform hover:-translate-y-1">
+      <div class="text-4xl text-accent-blue mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" class="lucide lucide-cpu"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2M9 2v2M2 9h2M2 15h2M22 9h-2M22 15h-2M9 22v-2M15 22v-2"/></svg>
+      </div>
+      <h3 class="text-2xl font-semibold mb-3 text-text-light">Automação e Suporte Digital</h3>
+      <p class="text-text-faded text-sm">Tecnologia que trabalha por você.</p>
+      <p class="text-text-light/70 mt-3">Integre ferramentas e processos automáticos para otimizar seu atendimento e fluxo de trabalho.</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  (function() {
+    const carousel = document.getElementById('solucoes-carousel');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    if (!carousel || !prevBtn || !nextBtn) return;
+
+    let autoScroll;
+    let userInteracted = false;
+    let resumeInteractionTimeout;
+
+    // Atualiza visibilidade das setas conforme posição e interação.
+    function updateButtons() {
+      const scrollLeft = Math.round(carousel.scrollLeft);
+      const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+
+      // seta esquerda: só aparece se o usuário já interagiu (clicou em next pelo menos uma vez ou arrastou)
+      if (userInteracted && scrollLeft > 20) {
+        prevBtn.classList.remove('opacity-0', 'pointer-events-none');
+      } else {
+        prevBtn.classList.add('opacity-0', 'pointer-events-none');
+      }
+
+      // seta direita: some quando no fim
+      if (scrollLeft + 10 >= maxScroll) {
+        nextBtn.classList.add('opacity-0', 'pointer-events-none');
+      } else {
+        nextBtn.classList.remove('opacity-0', 'pointer-events-none');
+      }
+    }
+
+    // Scroll por quantidade e atualiza estado
+    function scrollByAmount(amount) {
+      // marcar interação do usuário e reiniciar timer para retomar auto-scroll depois
+      userInteracted = true;
+      clearTimeout(resumeInteractionTimeout);
+      resumeInteractionTimeout = setTimeout(() => { userInteracted = false; }, 6000); // retoma após 6s de inatividade
+
+      carousel.scrollBy({ left: amount, behavior: 'smooth' });
+      // aguardar término do smooth scroll para atualizar botões
+      setTimeout(updateButtons, 550);
+    }
+
+    // Eventos dos botões
+    prevBtn.addEventListener('click', () => scrollByAmount(-400));
+    nextBtn.addEventListener('click', () => scrollByAmount(400));
+
+    // Atualizar quando o usuário rolar manualmente (arrastar)
+    let isTouching = false;
+    carousel.addEventListener('scroll', () => {
+      // Se o usuário está arrastando, considere interação
+      if (isTouching) {
+        userInteracted = true;
+        clearTimeout(resumeInteractionTimeout);
+        resumeInteractionTimeout = setTimeout(() => { userInteracted = false; }, 6000);
+      }
+      updateButtons();
+    });
+
+    // Detecta toque/arrasto
+    carousel.addEventListener('pointerdown', () => { isTouching = true; });
+    carousel.addEventListener('pointerup', () => { isTouching = false; });
+    carousel.addEventListener('pointercancel', () => { isTouching = false; });
+
+    // Auto-scroll suave (pausa ao passar o mouse ou quando userInteracted == true)
+    function startAutoScroll() {
+      stopAutoScroll();
+      autoScroll = setInterval(() => {
+        if (userInteracted) return; // pausa enquanto usuário interagiu recentemente
+        // se estiver no fim, volta ao início
+        if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 5) {
+          carousel.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          carousel.scrollBy({ left: 400, behavior: 'smooth' });
+        }
+        setTimeout(updateButtons, 600);
+      }, 4000);
+    }
+
+    function stopAutoScroll() {
+      if (autoScroll) clearInterval(autoScroll);
+    }
+
+    // Pausa auto-scroll no hover (desktop) e retoma ao sair
+    carousel.addEventListener('mouseenter', () => { stopAutoScroll(); });
+    carousel.addEventListener('mouseleave', () => { startAutoScroll(); });
+
+    // Inicia
+    updateButtons();
+    startAutoScroll();
+
+    // garantir atualização ao redimensionar (layout pode mudar)
+    window.addEventListener('resize', updateButtons);
+  })();
+</script>
+
+
+
+
         </section>
 
         <section class="py-20 md:py-24">
@@ -349,4 +507,8 @@
 
 </body>
 </html>
+
+</body>
+</html>
+
 
