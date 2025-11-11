@@ -263,19 +263,19 @@
     let userInteracted = false;
     let resumeInteractionTimeout;
 
-    // Atualiza visibilidade das setas conforme posição e interação.
+    // Atualiza visibilidade das setas conforme posição
     function updateButtons() {
       const scrollLeft = Math.round(carousel.scrollLeft);
       const maxScroll = carousel.scrollWidth - carousel.clientWidth;
 
-      // seta esquerda: só aparece se o usuário já interagiu (clicou em next pelo menos uma vez ou arrastou)
-      if (userInteracted && scrollLeft > 20) {
+      // seta esquerda aparece se houve qualquer scroll (manual ou automático)
+      if (scrollLeft > 20) {
         prevBtn.classList.remove('opacity-0', 'pointer-events-none');
       } else {
         prevBtn.classList.add('opacity-0', 'pointer-events-none');
       }
 
-      // seta direita: some quando no fim
+      // seta direita some quando no fim
       if (scrollLeft + 10 >= maxScroll) {
         nextBtn.classList.add('opacity-0', 'pointer-events-none');
       } else {
@@ -291,7 +291,6 @@
       resumeInteractionTimeout = setTimeout(() => { userInteracted = false; }, 6000); // retoma após 6s de inatividade
 
       carousel.scrollBy({ left: amount, behavior: 'smooth' });
-      // aguardar término do smooth scroll para atualizar botões
       setTimeout(updateButtons, 550);
     }
 
@@ -302,7 +301,6 @@
     // Atualizar quando o usuário rolar manualmente (arrastar)
     let isTouching = false;
     carousel.addEventListener('scroll', () => {
-      // Se o usuário está arrastando, considere interação
       if (isTouching) {
         userInteracted = true;
         clearTimeout(resumeInteractionTimeout);
@@ -316,18 +314,21 @@
     carousel.addEventListener('pointerup', () => { isTouching = false; });
     carousel.addEventListener('pointercancel', () => { isTouching = false; });
 
-    // Auto-scroll suave (pausa ao passar o mouse ou quando userInteracted == true)
+    // Auto-scroll suave
     function startAutoScroll() {
       stopAutoScroll();
       autoScroll = setInterval(() => {
-        if (userInteracted) return; // pausa enquanto usuário interagiu recentemente
-        // se estiver no fim, volta ao início
-        if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 5) {
+        if (userInteracted) return; // pausa enquanto o usuário interagiu recentemente
+
+        const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+        if (carousel.scrollLeft + carousel.clientWidth >= maxScroll - 5) {
           carousel.scrollTo({ left: 0, behavior: 'smooth' });
         } else {
           carousel.scrollBy({ left: 400, behavior: 'smooth' });
         }
-        setTimeout(updateButtons, 600);
+
+        // atualiza as setas também quando o auto-scroll anda
+        setTimeout(updateButtons, 700);
       }, 4000);
     }
 
@@ -336,17 +337,16 @@
     }
 
     // Pausa auto-scroll no hover (desktop) e retoma ao sair
-    carousel.addEventListener('mouseenter', () => { stopAutoScroll(); });
-    carousel.addEventListener('mouseleave', () => { startAutoScroll(); });
+    carousel.addEventListener('mouseenter', stopAutoScroll);
+    carousel.addEventListener('mouseleave', startAutoScroll);
 
-    // Inicia
+    // Inicializa
     updateButtons();
     startAutoScroll();
-
-    // garantir atualização ao redimensionar (layout pode mudar)
     window.addEventListener('resize', updateButtons);
   })();
 </script>
+
 
 
 
@@ -508,7 +508,6 @@
 </body>
 </html>
 
-</body>
-</html>
+
 
 
