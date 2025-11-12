@@ -573,9 +573,12 @@
     <div class="bg-primary-card p-6 md:p-8 rounded-xl shadow-2xl w-full max-w-lg mx-4 transform scale-95 transition-transform duration-300">
         <div class="flex justify-between items-center mb-6">
             <h3 class="text-2xl font-extrabold text-white">Solicite sua Demonstração</h3>
-            <button id="close-modal-btn" class="text-text-faded hover:text-white transition">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
+            <button id="close-demo-modal-btn" class="text-text-faded hover:text-white transition">
+  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+  </svg>
+</button>
+
         </div>
 
         <!-- Formulário Formspree - Ação que envia o email -->
@@ -619,7 +622,7 @@
 <script>
     // --- 2A. Lógica do Modal ---
     const modal = document.getElementById('demo-modal');
-    const closeBtn = document.getElementById('close-modal-btn');
+    const closeBtn = document.getElementById('close-demo-modal-btn');
     const form = document.getElementById('contact-form');
     const successMsg = document.getElementById('success-message');
     const errorMsg = document.getElementById('error-message');
@@ -697,8 +700,6 @@
                 form.classList.add('hidden');
                 successMsg.classList.remove('hidden');
                 
-                // Opcional: Fechar o modal após 5 segundos
-                setTimeout(closeModal, 5000); 
 
             } else {
                 // Erro: tenta mostrar mensagem de erro do servidor (se houver) ou genérica
@@ -717,6 +718,9 @@
 </script>
 </body>
 </html>
+
+
+
 
 
 
