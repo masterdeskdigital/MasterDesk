@@ -481,11 +481,9 @@
             </p>
             
             <form id="modal-form">
-                <input type="email" placeholder="Seu melhor e-mail" class="w-full p-3 mb-4 bg-primary-dark border border-accent-purple/50 rounded-lg text-text-light focus:ring-accent-blue focus:border-accent-blue transition" required>
-                <input type="text" placeholder="Seu nome / Empresa" class="w-full p-3 mb-6 bg-primary-dark border border-accent-purple/50 rounded-lg text-text-light focus:ring-accent-blue focus:border-accent-blue transition">
-                <button type="submit" class="w-full py-3 bg-accent-blue text-primary-dark font-bold rounded-lg hover:bg-accent-blue/80 transition duration-300">
-                    Solicitar Demonstração
-                </button>
+                <button id="open-modal-btn" class="w-full py-3 bg-accent-blue text-primary-dark font-bold rounded-lg hover:bg-accent-blue/80 transition duration-300">
+    Solicitar Demonstração
+</button>
             </form>
 
             <button id="close-modal-btn" class="absolute top-3 right-3 text-text-light/60 hover:text-accent-blue transition">
@@ -541,8 +539,7 @@
             // 3. Lidar com o envio do formulário no modal
             modalForm.addEventListener('submit', (e) => {
                 e.preventDefault();
-                // Simulação de envio
-                alertMessage('Sua solicitação foi enviada com sucesso! Em breve entraremos em contato.', 'bg-accent-blue text-primary-dark');
+    
                 
                 ctaModal.classList.add('hidden');
                 ctaModal.classList.remove('flex');
@@ -571,9 +568,157 @@
             }
         });
     </script>
+<!-- 1. MODAL (JANELA POP-UP) -->
+<div id="demo-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="bg-primary-card p-6 md:p-8 rounded-xl shadow-2xl w-full max-w-lg mx-4 transform scale-95 transition-transform duration-300">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-2xl font-extrabold text-white">Solicite sua Demonstração</h3>
+            <button id="close-modal-btn" class="text-text-faded hover:text-white transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
 
+        <!-- Formulário Formspree - Ação que envia o email -->
+        <form id="contact-form" action="https://formspree.io/f/mblqjwoz" method="POST" class="space-y-4">
+            <div>
+                <label for="name" class="block text-sm font-medium text-text-faded mb-1">Seu Nome</label>
+                <input type="text" id="name" name="Nome" required class="mt-1 block w-full rounded-lg border border-primary-dark/50 bg-primary-dark p-3 text-white placeholder-gray-500 focus:ring-accent-blue focus:border-accent-blue transition" placeholder="Seu nome completo">
+            </div>
+            <div>
+                <label for="email" class="block text-sm font-medium text-text-faded mb-1">Seu Melhor E-mail</label>
+                <input type="email" id="email" name="Email" required class="mt-1 block w-full rounded-lg border border-primary-dark/50 bg-primary-dark p-3 text-white placeholder-gray-500 focus:ring-accent-blue focus:border-accent-blue transition" placeholder="email@exemplo.com">
+            </div>
+            <div>
+                <label for="phone" class="block text-sm font-medium text-text-faded mb-1">Telefone / WhatsApp (Opcional)</label>
+                <input type="tel" id="phone" name="Telefone" class="mt-1 block w-full rounded-lg border border-primary-dark/50 bg-primary-dark p-3 text-white placeholder-gray-500 focus:ring-accent-blue focus:border-accent-blue transition" placeholder="(xx) xxxxx-xxxx">
+            </div>
+            <div>
+                <label for="message" class="block text-sm font-medium text-text-faded mb-1">O que você gostaria de automatizar?</label>
+                <textarea id="message" name="Mensagem" rows="4" class="mt-1 block w-full rounded-lg border border-primary-dark/50 bg-primary-dark p-3 text-white placeholder-gray-500 focus:ring-accent-blue focus:border-accent-blue transition" placeholder="Ex: Preciso de gestão de mídias e planilhas inteligentes."></textarea>
+            </div>
+            <button type="submit" id="submit-btn" class="w-full py-3 px-8 rounded-full font-bold transition duration-300 bg-accent-blue hover:bg-accent-blue/90 text-white shadow-lg focus:outline-none focus:ring-4 focus:ring-accent-blue/50">
+                Enviar Solicitação
+            </button>
+        </form>
+
+        <!-- Mensagem de Sucesso (escondida por padrão) -->
+        <div id="success-message" class="hidden text-center p-6 bg-green-900/30 rounded-lg border border-green-700/50 mt-4">
+            <h4 class="text-xl text-green-400 font-bold mb-2">Sucesso!</h4>
+            <p class="text-green-200">Sua solicitação foi enviada. Entraremos em contato o mais breve possível!</p>
+        </div>
+        
+        <!-- Mensagem de Erro (escondida por padrão) -->
+        <div id="error-message" class="hidden text-center p-6 bg-red-900/30 rounded-lg border border-red-700/50 mt-4">
+            <h4 class="text-xl text-red-400 font-bold mb-2">Erro no Envio!</h4>
+            <p class="text-red-200">Não foi possível enviar a mensagem. Por favor, tente novamente ou envie um email diretamente para masterdeskdigital@gmail.com.</p>
+        </div>
+    </div>
+</div>
+
+<!-- 2. JAVASCRIPT para a funcionalidade do modal e do envio do formulário -->
+<script>
+    // --- 2A. Lógica do Modal ---
+    const modal = document.getElementById('demo-modal');
+    const closeBtn = document.getElementById('close-modal-btn');
+    const form = document.getElementById('contact-form');
+    const successMsg = document.getElementById('success-message');
+    const errorMsg = document.getElementById('error-message');
+    const submitBtn = document.getElementById('submit-btn');
+
+    // Função para abrir o modal
+    function openModal() {
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        modal.classList.add('opacity-100');
+        // Adiciona um listener para fechar o modal ao clicar fora
+        modal.addEventListener('click', closeOutsideHandler);
+    }
+
+    // Função para fechar o modal
+    function closeModal() {
+        modal.classList.remove('opacity-100');
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        // Remove o listener para fechar o modal ao clicar fora
+        modal.removeEventListener('click', closeOutsideHandler);
+        // Limpa mensagens de feedback
+        setTimeout(() => {
+            successMsg.classList.add('hidden');
+            errorMsg.classList.add('hidden');
+            form.reset();
+            form.classList.remove('hidden');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Enviar Solicitação';
+        }, 300); // Aguarda o fim da transição
+    }
+
+    // Handler para fechar ao clicar fora
+    function closeOutsideHandler(event) {
+        // Verifica se o clique foi diretamente no backdrop (fundo cinza) e não no conteúdo do modal
+        if (event.target === modal) {
+            closeModal();
+        }
+    }
+
+    // Abre o modal quando o botão "Solicitar Demonstração" é clicado
+    document.addEventListener('DOMContentLoaded', () => {
+        const openBtn = document.getElementById('open-modal-btn');
+        if (openBtn) {
+            openBtn.addEventListener('click', openModal);
+        }
+    });
+
+    // Fecha o modal ao clicar no 'X'
+    closeBtn.addEventListener('click', closeModal);
+    
+    // --- 2B. Lógica de Envio do Formulário ---
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando...';
+        
+        // Esconde mensagens antigas
+        successMsg.classList.add('hidden');
+        errorMsg.classList.add('hidden');
+
+        const formData = new FormData(form);
+        const endpoint = form.action;
+
+        try {
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    // O Formspree não requer cabeçalho Content-Type para envios de formulário padrão
+                    'Accept': 'application/json' 
+                }
+            });
+
+            if (response.ok) {
+                // Sucesso: mostra mensagem de sucesso, esconde formulário
+                form.classList.add('hidden');
+                successMsg.classList.remove('hidden');
+                
+                // Opcional: Fechar o modal após 5 segundos
+                setTimeout(closeModal, 5000); 
+
+            } else {
+                // Erro: tenta mostrar mensagem de erro do servidor (se houver) ou genérica
+                errorMsg.classList.remove('hidden');
+            }
+        } catch (error) {
+            // Erro de rede ou outro problema
+            console.error('Erro de rede:', error);
+            errorMsg.classList.remove('hidden');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Enviar Solicitação';
+        }
+    });
+
+</script>
 </body>
 </html>
+
+
 
 
 
